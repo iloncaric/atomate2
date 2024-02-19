@@ -329,9 +329,9 @@ class MACERelaxMaker(ForceFieldRelaxMaker):
     model_kwargs: dict = field(default_factory=dict)
 
     def _relax(self, structure: Structure) -> dict:
-        from mace.calculators import mace_mp
+        from mace.calculators import mace_off
 
-        calculator = mace_mp(model=self.model, **self.model_kwargs)
+        calculator = mace_off(model=self.model, **self.model_kwargs)
         relaxer = Relaxer(
             calculator, relax_cell=self.relax_cell, **self.optimizer_kwargs
         )
@@ -368,9 +368,9 @@ class MACEStaticMaker(ForceFieldStaticMaker):
     model_kwargs: dict = field(default_factory=dict)
 
     def _evaluate_static(self, structure: Structure) -> dict:
-        from mace.calculators import mace_mp
+        from mace.calculators import mace_off
 
-        calculator = mace_mp(model=self.model, **self.model_kwargs)
+        calculator = mace_off(model=self.model, **self.model_kwargs)
         relaxer = Relaxer(calculator, relax_cell=False)
         return relaxer.relax(structure, steps=1)
 
